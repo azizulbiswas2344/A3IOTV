@@ -97,12 +97,8 @@ async def start(client, message):
                 InlineKeyboardButton(
                     "🤖 Join Updates Channel", url=invite_link.invite_link
                 )
-            ],
-            [
-                InlineKeyboardButton(
-                    "🦋 SUBSCRIBE YT Channel 🦋", url='https://youtube.com/@LazyDeveloperr'
-                )
             ]
+           
         ]
 
         if message.command[1] != "subscribe":
@@ -260,9 +256,6 @@ async def start(client, message):
                         [
                             [
                                 InlineKeyboardButton('▶ Gen Stream / Download Link', callback_data=f'generate_stream_link:{file_id}'),
-                            ],
-                            [
-                                InlineKeyboardButton('📌 ᴊᴏɪɴ ᴜᴘᴅᴀᴛᴇꜱ ᴄʜᴀɴɴᴇʟ 📌', url=f'https://t.me/LazyDeveloperr')
                             ]
                         ]
                     )
