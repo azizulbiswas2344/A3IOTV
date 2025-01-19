@@ -2195,8 +2195,9 @@ async def cb_handler(client: Client, query: CallbackQuery):
         await query.answer('👇👇 Please select anyone of the following  options 👇👇', show_alert=True)
     
     elif query.data == "seeplans":
-        btn = [[
-            InlineKeyboardButton('🗑️ ᴄʟᴏꜱᴇ 🗑️', callback_data='close_data')
+        btn = [
+            [InlineKeyboardButton("📲 ꜱᴇɴᴅ ᴘᴀʏᴍᴇɴᴛ ꜱᴄʀᴇᴇɴꜱʜᴏᴛ ʜᴇʀᴇ", url=f"https://t.me/{ADMIN_USRNM}")],
+            [InlineKeyboardButton("❌ ᴄʟᴏꜱᴇ ❌", callback_data="close_data")
         ]]
         reply_markup = InlineKeyboardMarkup(btn)
         await query.message.reply_photo(
