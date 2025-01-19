@@ -927,90 +927,138 @@ async def save_template(client, message):
     await save_group_settings(grp_id, 'template', template)
     await sts.edit(f"Successfully changed template for {title} to\n\n{template}")
 
-# @Client.on_message(filters.command("add_prime") & filters.user(ADMINS))
-# async def add_prime_status(client, message):
-#     try:
-#         if len(message.command) == 4:
-#             time_zone = datetime.datetime.now(pytz.timezone("Asia/Kolkata"))
-#             current_time = time_zone.strftime("%d-%m-%Y\n⏱️ Joining time : %I:%M:%S %p") 
-#             user_id = int(message.command[1])  # Convert the user_id to integer
-#             user = await client.get_users(user_id)
-#             time = message.command[2]+" "+message.command[3]
-#             seconds = await get_seconds(time)
-#             if seconds > 0:
-#                 expiry_time = datetime.datetime.now() + datetime.timedelta(seconds=seconds)
-#                 user_data = {"id": user_id, "expiry_time": expiry_time}  # Using "id" instead of "user_id"  
-#                 await db.update_user(user_data)  # Use the update_user method to update or insert user data
-#                 data = await db.get_user(user_id)
-#                 expiry = data.get("expiry_time")   
-#                 expiry_str_in_ist = expiry.astimezone(pytz.timezone("Asia/Kolkata")).strftime("%d-%m-%Y\n⏱️ ᴇxᴘɪʀʏ ᴛɪᴍᴇ : %I:%M:%S %p")         
-#                 await message.reply_text(f"{user.mention} Added to Prime list ✅\n\n👤 Name : {user.mention}\n⚡ ID : <code>{user_id}</code>\n⏰ Limit : <code>{time}</code>\n\n⏳ Joining Date : {current_time}\n\n⌛️ Exp Date : {expiry_str_in_ist}", disable_web_page_preview=True)
-#                 await client.send_message(
-#                     chat_id=user_id,
-#                     text=f"👋 ʜᴇʏ {user.mention},\nThank you for purchasing prime membership.\n\n⏰ LIMIT : <code>{time}</code>\n⏳ Joining Date : {current_time}\n\n⌛️ Exp Date : {expiry_str_in_ist}", disable_web_page_preview=True              
-#                 )
-#                 await client.send_message(PRIME_MEMBERS_LOGS, text=f"#New Prime member \n\n👤 Name : {user.mention}\n⚡ ID : <code>{user_id}</code>\n⏰ LIMIT : <code>{time}</code>\n\n⏳ Joining Date : {current_time}\n\n⌛️ Exp Date : {expiry_str_in_ist}", disable_web_page_preview=True)
+@Client.on_message(filters.command("add_premium") & filters.user(ADMINS))
+async def add_prime_status(client, message):
+    try:
+        if len(message.command) == 4:
+            time_zone = datetime.datetime.now(pytz.timezone("Asia/Kolkata"))
+            current_time = time_zone.strftime("%d-%m-%Y\n⏱️ Joining time : %I:%M:%S %p") 
+            user_id = int(message.command[1])  # Convert the user_id to integer
+            user = await client.get_users(user_id)
+            time = message.command[2]+" "+message.command[3]
+            seconds = await get_seconds(time)
+            if seconds > 0:
+                expiry_time = datetime.datetime.now() + datetime.timedelta(seconds=seconds)
+                user_data = {"id": user_id, "expiry_time": expiry_time}  # Using "id" instead of "user_id"  
+                await db.update_user(user_data)  # Use the update_user method to update or insert user data
+                data = await db.get_user(user_id)
+                expiry = data.get("expiry_time")   
+                expiry_str_in_ist = expiry.astimezone(pytz.timezone("Asia/Kolkata")).strftime("%d-%m-%Y\n⏱️ ᴇxᴘɪʀʏ ᴛɪᴍᴇ : %I:%M:%S %p")         
+                await message.reply_text(f"{user.mention} Added to Prime list ✅\n\n👤 Name : {user.mention}\n⚡ ID : <code>{user_id}</code>\n⏰ Limit : <code>{time}</code>\n\n⏳ Joining Date : {current_time}\n\n⌛️ Exp Date : {expiry_str_in_ist}", disable_web_page_preview=True)
+                await client.send_message(
+                    chat_id=user_id,
+                    text=f"👋 ʜᴇʏ {user.mention},\nThank you for purchasing prime membership.\n\n⏰ LIMIT : <code>{time}</code>\n⏳ Joining Date : {current_time}\n\n⌛️ Exp Date : {expiry_str_in_ist}", disable_web_page_preview=True              
+                )
+                await client.send_message(PRIME_MEMBERS_LOGS, text=f"#New Prime member \n\n👤 Name : {user.mention}\n⚡ ID : <code>{user_id}</code>\n⏰ LIMIT : <code>{time}</code>\n\n⏳ Joining Date : {current_time}\n\n⌛️ Exp Date : {expiry_str_in_ist}", disable_web_page_preview=True)
 
-#             else:
-#                 await message.reply_text("Invalid time format. Please use '1 day for days', '1 hour for hours', or '1 min for minutes', or '1 month for months' or '1 year for year'")
-#         else:
-#             await message.reply_text("Usage : /add_prime user_id time (e.g., '1 day for days', '1 hour for hours', or '1 min for minutes', or '1 month for months' or '1 year for year')")
-#     except Exception as e:
-#         print(e)
+            else:
+                await message.reply_text("Invalid time format. Please use '1 day for days', '1 hour for hours', or '1 min for minutes', or '1 month for months' or '1 year for year'")
+        else:
+            await message.reply_text("Usage : /add_premium user_id time (e.g., '1 day for days', '1 hour for hours', or '1 min for minutes', or '1 month for months' or '1 year for year')")
+    except Exception as e:
+        print(e)
         
-# @Client.on_message(filters.command("remove_prime") & filters.user(ADMINS))
-# async def remove_prime(client, message):
-#     if len(message.command) == 2:
-#         user_id = int(message.command[1])  # Convert the user_id to integer
-#         user = await client.get_users(user_id)
-#         if await db.remove_prime_status(user_id):
-#             await message.reply_text("User removed  successfully! ✔")
-#             await client.send_message(
-#                 chat_id=user_id,
-#                 text=f"<b>ʜᴇʏ {user.mention},\n\nʏᴏᴜʀ ᴘʀɪᴍᴇ ᴀᴄᴄᴇss ʜᴀs ʙᴇᴇɴ ʀᴇᴍᴏᴠᴇᴅ.\nᴛʜᴀɴᴋ ʏᴏᴜ ꜰᴏʀ ᴜsɪɴɢ ᴏᴜʀ sᴇʀᴠɪᴄᴇ 😊\nᴄʟɪᴄᴋ ᴏɴ /plan ᴛᴏ ᴄʜᴇᴄᴋ ᴏᴜᴛ ᴏᴛʜᴇʀ ᴘʟᴀɴꜱ.</b>"
-#             )
-#         else:
-#             await message.reply_text("ᴜɴᴀʙʟᴇ ᴛᴏ ʀᴇᴍᴏᴠᴇ ᴜꜱᴇʀ !\nᴀʀᴇ ʏᴏᴜ ꜱᴜʀᴇ, ɪᴛ ᴡᴀꜱ ᴀ ᴘʀɪᴍᴇ ᴜꜱᴇʀ ɪᴅ ?")
-#     else:
-#         await message.reply_text("ᴜꜱᴀɢᴇ : /remove_prime user_id") 
+@Client.on_message(filters.command("remove_premium") & filters.user(ADMINS))
+async def remove_prime(client, message):
+    if len(message.command) == 2:
+        user_id = int(message.command[1])  # Convert the user_id to integer
+        user = await client.get_users(user_id)
+        if await db.remove_prime_status(user_id):
+            await message.reply_text("User removed  successfully! ✔")
+            await client.send_message(
+                chat_id=user_id,
+                text=f"<b>ʜᴇʏ {user.mention},\n\nʏᴏᴜʀ ᴘʀɪᴍᴇ ᴀᴄᴄᴇss ʜᴀs ʙᴇᴇɴ ʀᴇᴍᴏᴠᴇᴅ.\nᴛʜᴀɴᴋ ʏᴏᴜ ꜰᴏʀ ᴜsɪɴɢ ᴏᴜʀ sᴇʀᴠɪᴄᴇ 😊\nᴄʟɪᴄᴋ ᴏɴ /plan ᴛᴏ ᴄʜᴇᴄᴋ ᴏᴜᴛ ᴏᴛʜᴇʀ ᴘʟᴀɴꜱ.</b>"
+            )
+        else:
+            await message.reply_text("ᴜɴᴀʙʟᴇ ᴛᴏ ʀᴇᴍᴏᴠᴇ ᴜꜱᴇʀ !\nᴀʀᴇ ʏᴏᴜ ꜱᴜʀᴇ, ɪᴛ ᴡᴀꜱ ᴀ ᴘʀɪᴍᴇ ᴜꜱᴇʀ ɪᴅ ?")
+    else:
+        await message.reply_text("ᴜꜱᴀɢᴇ : /remove_premium user_id") 
 
-# @Client.on_message(filters.command("get_prime") & filters.user(ADMINS))
-# async def get_prime_status(client, message):
-#     if len(message.command) == 2:
-#         user_id = int(message.command[1])
-#         user = await client.get_users(user_id)
-#         data = await db.get_user(user_id)  # Convert the user_id to integer
-#         if data and data.get("expiry_time"):
-#             #expiry_time = datetime.datetime.now() + datetime.timedelta(seconds=data)
-#             expiry = data.get("expiry_time") 
-#             expiry_ist = expiry.astimezone(pytz.timezone("Asia/Kolkata"))
-#             expiry_str_in_ist = expiry.astimezone(pytz.timezone("Asia/Kolkata")).strftime("%d-%m-%Y\n⏱️ ᴇxᴘɪʀʏ ᴛɪᴍᴇ : %I:%M:%S %p")            
-#             # Calculate time difference
-#             current_time = datetime.datetime.now(pytz.timezone("Asia/Kolkata"))
-#             time_left = expiry_ist - current_time
+@Client.on_message(filters.command("get_premium") & filters.user(ADMINS))
+async def get_prime_status(client, message):
+    if len(message.command) == 2:
+        user_id = int(message.command[1])
+        user = await client.get_users(user_id)
+        data = await db.get_user(user_id)  # Convert the user_id to integer
+        if data and data.get("expiry_time"):
+            #expiry_time = datetime.datetime.now() + datetime.timedelta(seconds=data)
+            expiry = data.get("expiry_time") 
+            expiry_ist = expiry.astimezone(pytz.timezone("Asia/Kolkata"))
+            expiry_str_in_ist = expiry.astimezone(pytz.timezone("Asia/Kolkata")).strftime("%d-%m-%Y\n⏱️ ᴇxᴘɪʀʏ ᴛɪᴍᴇ : %I:%M:%S %p")            
+            # Calculate time difference
+            current_time = datetime.datetime.now(pytz.timezone("Asia/Kolkata"))
+            time_left = expiry_ist - current_time
             
-#             # Calculate days, hours, and minutes
-#             days = time_left.days
-#             hours, remainder = divmod(time_left.seconds, 3600)
-#             minutes, seconds = divmod(remainder, 60)
+            # Calculate days, hours, and minutes
+            days = time_left.days
+            hours, remainder = divmod(time_left.seconds, 3600)
+            minutes, seconds = divmod(remainder, 60)
             
-#             # Format time left as a string
-#             time_left_str = f"{days} days, {hours} hours, {minutes} minutes"
-#             await message.reply_text(f"⚜️ ᴘʀɪᴍᴇ ᴜꜱᴇʀ ᴅᴀᴛᴀ :\n\n👤 ᴜꜱᴇʀ : {user.mention}\n⚡ ᴜꜱᴇʀ ɪᴅ : <code>{user_id}</code>\n⏰ ᴛɪᴍᴇ ʟᴇꜰᴛ : {time_left_str}\n⌛️ ᴇxᴘɪʀʏ ᴅᴀᴛᴇ : {expiry_str_in_ist}")
-#         else:
-#             await message.reply_text("ɴᴏ ᴀɴʏ ᴘʀɪᴍᴇ ᴅᴀᴛᴀ ᴡᴀꜱ ꜰᴏᴜɴᴅ ɪɴ ᴅᴀᴛᴀʙᴀꜱᴇ !")
-#     else:
-#         await message.reply_text("ᴜꜱᴀɢᴇ : /get_prime user_id")
+            # Format time left as a string
+            time_left_str = f"{days} days, {hours} hours, {minutes} minutes"
+            await message.reply_text(f"⚜️ ᴘʀɪᴍᴇ ᴜꜱᴇʀ ᴅᴀᴛᴀ :\n\n👤 ᴜꜱᴇʀ : {user.mention}\n⚡ ᴜꜱᴇʀ ɪᴅ : <code>{user_id}</code>\n⏰ ᴛɪᴍᴇ ʟᴇꜰᴛ : {time_left_str}\n⌛️ ᴇxᴘɪʀʏ ᴅᴀᴛᴇ : {expiry_str_in_ist}")
+        else:
+            await message.reply_text("ɴᴏ ᴀɴʏ ᴘʀɪᴍᴇ ᴅᴀᴛᴀ ᴡᴀꜱ ꜰᴏᴜɴᴅ ɪɴ ᴅᴀᴛᴀʙᴀꜱᴇ !")
+    else:
+        await message.reply_text("ᴜꜱᴀɢᴇ : /get_premium user_id")
 
-# @Client.on_message(filters.command("prime_users") & filters.user(ADMINS))
+@Client.on_message(filters.command("premium_user") & filters.user(ADMINS))
+async def prime_unser(client, message):
+    aa = await message.reply_text("<i>Please wait...</i>")
+    new = "⚜️ ᴘʀɪᴍᴇ ᴜꜱᴇʀꜱ ʟɪꜱᴛ :\n\n"
+    user_count = 1
+
+    try:
+        # Fetch only prime users
+        users = await db.get_all_prime_users()
+    except Exception as e:
+        logging.error(f"Error fetching users: {e}")
+        await aa.edit_text("Failed to fetch users.")
+        return
+
+    async for user in users:
+        try:
+            # Fetch additional user data if needed
+            expiry = user.get("expiry_time")
+            if not expiry:
+                continue
+
+            expiry_ist = expiry.astimezone(pytz.timezone("Asia/Kolkata"))
+            expiry_str_in_ist = expiry_ist.strftime("%d-%m-%Y\n⏱️ ᴇxᴘɪʀʏ ᴛɪᴍᴇ : %I:%M:%S %p")
+            current_time = datetime.datetime.now(pytz.timezone("Asia/Kolkata"))
+            time_left = expiry_ist - current_time
+
+            days = time_left.days
+            hours, remainder = divmod(time_left.seconds, 3600)
+            minutes, seconds = divmod(remainder, 60)
+            time_left_str = f"{days} days, {hours} hours, {minutes} minutes"
+
+            user_info = await client.get_users(user["id"])
+            new += f"{user_count}. {user_info.mention}\n👤 ᴜꜱᴇʀ ɪᴅ : {user['id']}\n⏳ ᴇxᴘɪʀʏ ᴅᴀᴛᴇ : {expiry_str_in_ist}\n⏰ ᴛɪᴍᴇ ʟᴇꜰᴛ : {time_left_str}\n"
+            user_count += 1
+        except Exception as e:
+            logging.error(f"Error processing user {user['id']}: {e}")
+            continue
+
+    try:
+        await aa.edit_text(new)
+    except MessageTooLong:
+        with open('lazyusersplan.txt', 'w', encoding='utf-8') as outfile:
+            outfile.write(new)
+        await message.reply_document('usersplan.txt', caption="Paid Users:")
+    except Exception as e:
+        logging.error(f"Error editing message: {e}")
+        await aa.edit_text("Failed to send the user list.")
+
+
+# @Client.on_message(filters.command("premium_users") & filters.user(ADMINS))
 # async def prime_user(client, message):
 #     aa = await message.reply_text("<i>Please wait...</i>")
 #     new = f"⚜️ ᴘʀɪᴍᴇ ᴜꜱᴇʀꜱ ʟɪꜱᴛ :\n\n"
 #     user_count = 1
-
 #     try:
 #         users = await db.get_all_users()
-#         logging.debug(f"Fetched {len(users)} users")
+#         # logging.debug(f"Fetched {len(users)} users")
 #     except Exception as e:
 #         logging.error(f"Error fetching users: {e}")
 #         await aa.edit_text("Failed to fetch users.")
@@ -1019,8 +1067,9 @@ async def save_template(client, message):
 #     async for user in users:
 #         try:
 #             data = await db.get_user(user['id'])
-#             logging.debug(f"Fetched data for user {user['id']}: {data}")
-            
+#             # logging.debug(f"Fetched data for user {user['id']}: {data}")
+#             print(f"i got this for user : {data}")
+
 #             if data and data.get("expiry_time"):
 #                 expiry = data.get("expiry_time")
 #                 expiry_ist = expiry.astimezone(pytz.timezone("Asia/Kolkata"))
@@ -1048,134 +1097,134 @@ async def save_template(client, message):
 #         logging.error(f"Error editing message: {e}")
 #         await aa.edit_text("Failed to send the user list.")
 
-# @Client.on_message(filters.command("myplan"))
-# async def myplan(client, message):
-#     user = message.from_user.mention 
-#     user_id = message.from_user.id
-#     data = await db.get_user(message.from_user.id)  # Convert the user_id to integer
-#     if data and data.get("expiry_time"):
-#         #expiry_time = datetime.datetime.now() + datetime.timedelta(seconds=data)
-#         expiry = data.get("expiry_time") 
-#         expiry_ist = expiry.astimezone(pytz.timezone("Asia/Kolkata"))
-#         expiry_str_in_ist = expiry.astimezone(pytz.timezone("Asia/Kolkata")).strftime("%d-%m-%Y\n⏱️ ᴇxᴘɪʀʏ ᴛɪᴍᴇ : %I:%M:%S %p")            
-#         # Calculate time difference
-#         current_time = datetime.datetime.now(pytz.timezone("Asia/Kolkata"))
-#         time_left = expiry_ist - current_time
+@Client.on_message(filters.command("myplan"))
+async def myplan(client, message):
+    user = message.from_user.mention 
+    user_id = message.from_user.id
+    data = await db.get_user(message.from_user.id)  # Convert the user_id to integer
+    if data and data.get("expiry_time"):
+        #expiry_time = datetime.datetime.now() + datetime.timedelta(seconds=data)
+        expiry = data.get("expiry_time") 
+        expiry_ist = expiry.astimezone(pytz.timezone("Asia/Kolkata"))
+        expiry_str_in_ist = expiry.astimezone(pytz.timezone("Asia/Kolkata")).strftime("%d-%m-%Y\n⏱️ ᴇxᴘɪʀʏ ᴛɪᴍᴇ : %I:%M:%S %p")            
+        # Calculate time difference
+        current_time = datetime.datetime.now(pytz.timezone("Asia/Kolkata"))
+        time_left = expiry_ist - current_time
             
-#         # Calculate days, hours, and minutes
-#         days = time_left.days
-#         hours, remainder = divmod(time_left.seconds, 3600)
-#         minutes, seconds = divmod(remainder, 60)
+        # Calculate days, hours, and minutes
+        days = time_left.days
+        hours, remainder = divmod(time_left.seconds, 3600)
+        minutes, seconds = divmod(remainder, 60)
             
-#         # Format time left as a string
-#         time_left_str = f"{days} ᴅᴀʏꜱ, {hours} ʜᴏᴜʀꜱ, {minutes} ᴍɪɴᴜᴛᴇꜱ"
-#         await message.reply_text(f"👑 ᴘʀɪᴍᴇ ᴜꜱᴇʀ ᴅᴀᴛᴀ :\n\n👤 Name : {user}\n⚡ ID : <code>{user_id}</code>\n⏰ Time Left : {time_left_str}\n⌛️ Exp Date : {expiry_str_in_ist}")   
-#     else:
-#         await message.reply_text(f"ʜᴇʏ {user},\n\nʏᴏᴜ ᴅᴏ ɴᴏᴛ ʜᴀᴠᴇ ᴀɴʏ ᴀᴄᴛɪᴠᴇ ᴘʀɪᴍᴇ ᴘʟᴀɴs, ɪꜰ ʏᴏᴜ ᴡᴀɴᴛ ᴛᴏ ᴛᴀᴋᴇ ᴘʀɪᴍᴇ ᴛʜᴇɴ ᴄʟɪᴄᴋ ᴏɴ ʙᴇʟᴏᴡ ʙᴜᴛᴛᴏɴ 👇",
-# 	reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("💸 ᴄʜᴇᴄᴋᴏᴜᴛ ᴘʀɪᴍᴇ ᴘʟᴀɴꜱ 💸", callback_data='seeplans')]]))			 
+        # Format time left as a string
+        time_left_str = f"{days} ᴅᴀʏꜱ, {hours} ʜᴏᴜʀꜱ, {minutes} ᴍɪɴᴜᴛᴇꜱ"
+        await message.reply_text(f"👑 ᴘʀɪᴍᴇ ᴜꜱᴇʀ ᴅᴀᴛᴀ :\n\n👤 Name : {user}\n⚡ ID : <code>{user_id}</code>\n⏰ Time Left : {time_left_str}\n⌛️ Exp Date : {expiry_str_in_ist}")   
+    else:
+        await message.reply_text(f"ʜᴇʏ {user},\n\nʏᴏᴜ ᴅᴏ ɴᴏᴛ ʜᴀᴠᴇ ᴀɴʏ ᴀᴄᴛɪᴠᴇ ᴘʀɪᴍᴇ ᴘʟᴀɴs, ɪꜰ ʏᴏᴜ ᴡᴀɴᴛ ᴛᴏ ᴛᴀᴋᴇ ᴘʀɪᴍᴇ ᴛʜᴇɴ ᴄʟɪᴄᴋ ᴏɴ ʙᴇʟᴏᴡ ʙᴜᴛᴛᴏɴ 👇",
+	reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("💸 ᴄʜᴇᴄᴋᴏᴜᴛ ᴘʀɪᴍᴇ ᴘʟᴀɴꜱ 💸", callback_data='seeplans')]]))			 
 
-# @Client.on_message(filters.command("plan"))
-# async def plan(client, message):
-#     user_id = message.from_user.id 
-#     users = message.from_user.mention 
-#     btn = [[
-	
-#         InlineKeyboardButton("📲 ꜱᴇɴᴅ ᴘᴀʏᴍᴇɴᴛ ꜱᴄʀᴇᴇɴꜱʜᴏᴛ ʜᴇʀᴇ", url=f"https://t.me/{ADMIN_USRNM}")],[InlineKeyboardButton("❌ ᴄʟᴏꜱᴇ ❌", callback_data="close_data")
-#     ]]
-#     await message.reply_photo(photo="https://telegra.ph/file/ca18e2c794f4ea1c3135b.jpg", caption=script.PLANS_TXT.format(message.from_user.mention, UPI_ID, QR_CODE_IMG), reply_markup=InlineKeyboardMarkup(btn), parse_mode=enums.ParseMode.HTML)
+@Client.on_message(filters.command("plan"))
+async def plan(client, message):
+    user_id = message.from_user.id 
+    users = message.from_user.mention 
+    btn = [
+        [InlineKeyboardButton("📲 ꜱᴇɴᴅ ᴘᴀʏᴍᴇɴᴛ ꜱᴄʀᴇᴇɴꜱʜᴏᴛ ʜᴇʀᴇ", url=f"https://t.me/{ADMIN_USRNM}")],
+        [InlineKeyboardButton("❌ ᴄʟᴏꜱᴇ ❌", callback_data="close_data")
+    ]]
+    await message.reply_photo(photo="https://i.ibb.co/bNzgJXm/IMG-20250119-WA0003.jpg", caption=script.PLANS_TXT.format(message.from_user.mention, UPI_ID, QR_CODE_IMG), reply_markup=InlineKeyboardMarkup(btn), parse_mode=enums.ParseMode.HTML)
 
-# @Client.on_message(filters.command("shortlink"))
-# async def shortlink(bot, message):
-#     userid = message.from_user.id if message.from_user else None
-#     if not userid:
-#         return await message.reply(f"ʏᴏᴜ'ʀᴇ ᴀɴᴏɴʏᴍᴏᴜꜱ ᴀᴅᴍɪɴ, ᴛᴜʀɴ ᴏꜰꜰ ᴀɴᴏɴʏᴍᴏᴜꜱ ᴀᴅᴍɪɴ ᴀɴᴅ ᴛʀʏ ᴛʜɪꜱ ᴀɢᴀɪɴ ᴄᴏᴍᴍᴀɴᴅ.")
-#     chat_type = message.chat.type
-#     if chat_type == enums.ChatType.PRIVATE:
-#         return await message.reply_text(f"<b>ʜᴇʏ {message.from_user.mention}, ᴛʜɪꜱ ᴄᴏᴍᴍᴀɴᴅ ᴏɴʟʏ ᴡᴏʀᴋꜱ ɪɴ ɢʀᴏᴜᴘꜱ !")
-#     elif chat_type in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
-#         grpid = message.chat.id
-#         title = message.chat.title
-#     else:
-#         return
-#     data = message.text
-#     userid = message.from_user.id
-#     user = await bot.get_chat_member(grpid, userid)
-#     if user.status != enums.ChatMemberStatus.ADMINISTRATOR and user.status != enums.ChatMemberStatus.OWNER and str(userid) not in ADMINS:
-#         return await message.reply_text("<b>ʏᴏᴜ ᴅᴏɴ'ᴛ ʜᴀᴠᴇ ᴀᴄᴄᴇꜱꜱ ᴛᴏ ᴛʜɪꜱ ᴄᴏᴍᴍᴀɴᴅ !\nᴛʜɪꜱ ᴄᴏᴍᴍᴀɴᴅ ᴏɴʟʏ ᴡᴏʀᴋꜱ ꜰᴏʀ ɢʀᴏᴜᴘ ᴀᴅᴍɪɴꜱ.</b>")
-#     else:
-#         pass
-#     try:
-#         command, shortlink_url, api = data.split(" ")
-#     except:
-#         return await message.reply_text("<b>ᴄᴏᴍᴍᴀɴᴅ ɪɴᴄᴏᴍᴘʟᴇᴛᴇ !\nɢɪᴠᴇ ᴍᴇ ᴄᴏᴍᴍᴀɴᴅ ᴀʟᴏɴɢ ᴡɪᴛʜ ꜱʜᴏʀᴛɴᴇʀ ᴡᴇʙꜱɪᴛᴇ ᴀɴᴅ ᴀᴘɪ.\n\nꜰᴏʀᴍᴀᴛ : <code>/shortlink krishnalink.com c8dacdff6e91a8e4b4f093fdb4d8ae31bc273c1a</code>")
-#     reply = await message.reply_text("<b>ᴘʟᴇᴀꜱᴇ ᴡᴀɪᴛ...</b>")
-#     shortlink_url = re.sub(r"https?://?", "", shortlink_url)
-#     shortlink_url = re.sub(r"[:/]", "", shortlink_url)
-#     await save_group_settings(grpid, 'shortlink', shortlink_url)
-#     await save_group_settings(grpid, 'shortlink_api', api)
-#     await save_group_settings(grpid, 'url_mode', True)
-#     await reply.edit_text(f"<b>✅ ꜱᴜᴄᴄᴇꜱꜱꜰᴜʟʟʏ ᴀᴅᴅᴇᴅ ꜱʜᴏʀᴛʟɪɴᴋ ꜰᴏʀ <code>{title}</code>.\n\nꜱʜᴏʀᴛʟɪɴᴋ ᴡᴇʙꜱɪᴛᴇ : <code>{shortlink_url}</code>\nꜱʜᴏʀᴛʟɪɴᴋ ᴀᴘɪ : <code>{api}</code></b>")
+@Client.on_message(filters.command("shortlink"))
+async def shortlink(bot, message):
+    userid = message.from_user.id if message.from_user else None
+    if not userid:
+        return await message.reply(f"ʏᴏᴜ'ʀᴇ ᴀɴᴏɴʏᴍᴏᴜꜱ ᴀᴅᴍɪɴ, ᴛᴜʀɴ ᴏꜰꜰ ᴀɴᴏɴʏᴍᴏᴜꜱ ᴀᴅᴍɪɴ ᴀɴᴅ ᴛʀʏ ᴛʜɪꜱ ᴀɢᴀɪɴ ᴄᴏᴍᴍᴀɴᴅ.")
+    chat_type = message.chat.type
+    if chat_type == enums.ChatType.PRIVATE:
+        return await message.reply_text(f"<b>ʜᴇʏ {message.from_user.mention}, ᴛʜɪꜱ ᴄᴏᴍᴍᴀɴᴅ ᴏɴʟʏ ᴡᴏʀᴋꜱ ɪɴ ɢʀᴏᴜᴘꜱ !")
+    elif chat_type in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
+        grpid = message.chat.id
+        title = message.chat.title
+    else:
+        return
+    data = message.text
+    userid = message.from_user.id
+    user = await bot.get_chat_member(grpid, userid)
+    if user.status != enums.ChatMemberStatus.ADMINISTRATOR and user.status != enums.ChatMemberStatus.OWNER and str(userid) not in ADMINS:
+        return await message.reply_text("<b>ʏᴏᴜ ᴅᴏɴ'ᴛ ʜᴀᴠᴇ ᴀᴄᴄᴇꜱꜱ ᴛᴏ ᴛʜɪꜱ ᴄᴏᴍᴍᴀɴᴅ !\nᴛʜɪꜱ ᴄᴏᴍᴍᴀɴᴅ ᴏɴʟʏ ᴡᴏʀᴋꜱ ꜰᴏʀ ɢʀᴏᴜᴘ ᴀᴅᴍɪɴꜱ.</b>")
+    else:
+        pass
+    try:
+        command, shortlink_url, api = data.split(" ")
+    except:
+        return await message.reply_text("<b>ᴄᴏᴍᴍᴀɴᴅ ɪɴᴄᴏᴍᴘʟᴇᴛᴇ !\nɢɪᴠᴇ ᴍᴇ ᴄᴏᴍᴍᴀɴᴅ ᴀʟᴏɴɢ ᴡɪᴛʜ ꜱʜᴏʀᴛɴᴇʀ ᴡᴇʙꜱɪᴛᴇ ᴀɴᴅ ᴀᴘɪ.\n\nꜰᴏʀᴍᴀᴛ : <code>/shortlink krishnalink.com c8dacdff6e91a8e4b4f093fdb4d8ae31bc273c1a</code>")
+    reply = await message.reply_text("<b>ᴘʟᴇᴀꜱᴇ ᴡᴀɪᴛ...</b>")
+    shortlink_url = re.sub(r"https?://?", "", shortlink_url)
+    shortlink_url = re.sub(r"[:/]", "", shortlink_url)
+    await save_group_settings(grpid, 'shortlink', shortlink_url)
+    await save_group_settings(grpid, 'shortlink_api', api)
+    await save_group_settings(grpid, 'url_mode', True)
+    await reply.edit_text(f"<b>✅ ꜱᴜᴄᴄᴇꜱꜱꜰᴜʟʟʏ ᴀᴅᴅᴇᴅ ꜱʜᴏʀᴛʟɪɴᴋ ꜰᴏʀ <code>{title}</code>.\n\nꜱʜᴏʀᴛʟɪɴᴋ ᴡᴇʙꜱɪᴛᴇ : <code>{shortlink_url}</code>\nꜱʜᴏʀᴛʟɪɴᴋ ᴀᴘɪ : <code>{api}</code></b>")
 
-# @Client.on_message(filters.command("setshortlinkoff") & filters.user(ADMINS))
-# async def offshortlink(bot, message):
-#     chat_type = message.chat.type
-#     if chat_type == enums.ChatType.PRIVATE:
-#         return await message.reply_text("ᴛʜɪꜱ ᴄᴏᴍᴍᴀɴᴅ ᴡᴏʀᴋꜱ ᴏɴʟʏ ɪɴ ɢʀᴏᴜᴘꜱ !")
-#     elif chat_type in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
-#         grpid = message.chat.id
-#         title = message.chat.title
-#     else:
-#         return
-#     await save_group_settings(grpid, 'url_mode', False)
-#     ENABLE_SHORTLINK = False
-#     return await message.reply_text("ꜱʜᴏʀᴛʟɪɴᴋ ꜱᴜᴄᴄᴇꜱꜱꜰᴜʟʟʏ ᴅɪꜱᴀʙʟᴇᴅ.")
+@Client.on_message(filters.command("setshortlinkoff") & filters.user(ADMINS))
+async def offshortlink(bot, message):
+    chat_type = message.chat.type
+    if chat_type == enums.ChatType.PRIVATE:
+        return await message.reply_text("ᴛʜɪꜱ ᴄᴏᴍᴍᴀɴᴅ ᴡᴏʀᴋꜱ ᴏɴʟʏ ɪɴ ɢʀᴏᴜᴘꜱ !")
+    elif chat_type in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
+        grpid = message.chat.id
+        title = message.chat.title
+    else:
+        return
+    await save_group_settings(grpid, 'url_mode', False)
+    ENABLE_SHORTLINK = False
+    return await message.reply_text("ꜱʜᴏʀᴛʟɪɴᴋ ꜱᴜᴄᴄᴇꜱꜱꜰᴜʟʟʏ ᴅɪꜱᴀʙʟᴇᴅ.")
     
-# @Client.on_message(filters.command("setshortlinkon") & filters.user(ADMINS))
-# async def onshortlink(bot, message):
-#     chat_type = message.chat.type
-#     if chat_type == enums.ChatType.PRIVATE:
-#         return await message.reply_text("ᴛʜɪꜱ ᴄᴏᴍᴍᴀɴᴅ ᴡᴏʀᴋꜱ ᴏɴʟʏ ɪɴ ɢʀᴏᴜᴘꜱ !")
-#     elif chat_type in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
-#         grpid = message.chat.id
-#         title = message.chat.title
-#     else:
-#         return
-#     await save_group_settings(grpid, 'url_mode', True)
-#     ENABLE_SHORTLINK = True
-#     return await message.reply_text("ꜱʜᴏʀᴛʟɪɴᴋ ꜱᴜᴄᴄᴇꜱꜱꜰᴜʟʟʏ ᴇɴᴀʙʟᴇᴅ.")
+@Client.on_message(filters.command("setshortlinkon") & filters.user(ADMINS))
+async def onshortlink(bot, message):
+    chat_type = message.chat.type
+    if chat_type == enums.ChatType.PRIVATE:
+        return await message.reply_text("ᴛʜɪꜱ ᴄᴏᴍᴍᴀɴᴅ ᴡᴏʀᴋꜱ ᴏɴʟʏ ɪɴ ɢʀᴏᴜᴘꜱ !")
+    elif chat_type in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
+        grpid = message.chat.id
+        title = message.chat.title
+    else:
+        return
+    await save_group_settings(grpid, 'url_mode', True)
+    ENABLE_SHORTLINK = True
+    return await message.reply_text("ꜱʜᴏʀᴛʟɪɴᴋ ꜱᴜᴄᴄᴇꜱꜱꜰᴜʟʟʏ ᴇɴᴀʙʟᴇᴅ.")
 
-# @Client.on_message(filters.command("shortlink_info"))
-# async def ginfo(bot, message):
-#     chat_type = message.chat.type
-#     if chat_type == enums.ChatType.PRIVATE:
-#         return await message.reply_text(f"<b>{message.from_user.mention},\n\nᴜꜱᴇ ᴛʜɪꜱ ᴄᴏᴍᴍᴀɴᴅ ɪɴ ʏᴏᴜʀ ɢʀᴏᴜᴘ.</b>")
-#     elif chat_type in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
-#         grpid = message.chat.id
-#         title = message.chat.title
-#     else:
-#         return
-#     chat_id=message.chat.id
-#     userid = message.from_user.id
-#     user = await bot.get_chat_member(grpid, userid)
+@Client.on_message(filters.command("shortlink_info"))
+async def ginfo(bot, message):
+    chat_type = message.chat.type
+    if chat_type == enums.ChatType.PRIVATE:
+        return await message.reply_text(f"<b>{message.from_user.mention},\n\nᴜꜱᴇ ᴛʜɪꜱ ᴄᴏᴍᴍᴀɴᴅ ɪɴ ʏᴏᴜʀ ɢʀᴏᴜᴘ.</b>")
+    elif chat_type in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
+        grpid = message.chat.id
+        title = message.chat.title
+    else:
+        return
+    chat_id=message.chat.id
+    userid = message.from_user.id
+    user = await bot.get_chat_member(grpid, userid)
  
-#     if user.status != enums.ChatMemberStatus.ADMINISTRATOR and user.status != enums.ChatMemberStatus.OWNER and str(userid) not in ADMINS:
-#         return await message.reply_text("<b>ᴏɴʟʏ ɢʀᴏᴜᴘ ᴏᴡɴᴇʀ ᴏʀ ᴀᴅᴍɪɴ ᴄᴀɴ ᴜꜱᴇ ᴛʜɪꜱ ᴄᴏᴍᴍᴀɴᴅ !</b>")
-#     else:
-#         settings = await get_settings(chat_id) #fetching settings for group
-#         if 'shortlink' in settings.keys() and 'tutorial' in settings.keys():
-#             su = settings['shortlink']
-#             sa = settings['shortlink_api']
-#             st = settings['tutorial']
-#             return await message.reply_text(f"<b><u>ᴄᴜʀʀᴇɴᴛ  ꜱᴛᴀᴛᴜꜱ<u> 📊\n\nᴡᴇʙꜱɪᴛᴇ : <code>{su}</code>\n\nᴀᴘɪ : <code>{sa}</code>\n\nᴛᴜᴛᴏʀɪᴀʟ : {st}</b>", disable_web_page_preview=True)
-#         elif 'shortlink' in settings.keys() and 'tutorial' not in settings.keys():
-#             su = settings['shortlink']
-#             sa = settings['shortlink_api']
-#             return await message.reply_text(f"<b><u>ᴄᴜʀʀᴇɴᴛ  ꜱᴛᴀᴛᴜꜱ<u> 📊\n\nᴡᴇʙꜱɪᴛᴇ : <code>{su}</code>\n\nᴀᴘɪ : <code>{sa}</code>\n\nᴜꜱᴇ /set_tutorial ᴄᴏᴍᴍᴀɴᴅ ᴛᴏ ꜱᴇᴛ ʏᴏᴜʀ ᴛᴜᴛᴏʀɪᴀʟ.")
-#         elif 'shortlink' not in settings.keys() and 'tutorial' in settings.keys():
-#             st = settings['tutorial']
-#             return await message.reply_text(f"<b>ᴛᴜᴛᴏʀɪᴀʟ : <code>{st}</code>\n\nᴜꜱᴇ  /shortlink  ᴄᴏᴍᴍᴀɴᴅ  ᴛᴏ  ᴄᴏɴɴᴇᴄᴛ  ʏᴏᴜʀ  ꜱʜᴏʀᴛɴᴇʀ</b>")
-#         else:
-#             return await message.reply_text("ꜱʜᴏʀᴛɴᴇʀ ᴀɴᴅ ᴛᴜᴛᴏʀɪᴀʟ ᴀʀᴇ ɴᴏᴛ ᴄᴏɴɴᴇᴄᴛᴇᴅ.\n\nᴄʜᴇᴄᴋ /set_tutorial  ᴀɴᴅ  /shortlink  ᴄᴏᴍᴍᴀɴᴅ.")
+    if user.status != enums.ChatMemberStatus.ADMINISTRATOR and user.status != enums.ChatMemberStatus.OWNER and str(userid) not in ADMINS:
+        return await message.reply_text("<b>ᴏɴʟʏ ɢʀᴏᴜᴘ ᴏᴡɴᴇʀ ᴏʀ ᴀᴅᴍɪɴ ᴄᴀɴ ᴜꜱᴇ ᴛʜɪꜱ ᴄᴏᴍᴍᴀɴᴅ !</b>")
+    else:
+        settings = await get_settings(chat_id) #fetching settings for group
+        if 'shortlink' in settings.keys() and 'tutorial' in settings.keys():
+            su = settings['shortlink']
+            sa = settings['shortlink_api']
+            st = settings['tutorial']
+            return await message.reply_text(f"<b><u>ᴄᴜʀʀᴇɴᴛ  ꜱᴛᴀᴛᴜꜱ<u> 📊\n\nᴡᴇʙꜱɪᴛᴇ : <code>{su}</code>\n\nᴀᴘɪ : <code>{sa}</code>\n\nᴛᴜᴛᴏʀɪᴀʟ : {st}</b>", disable_web_page_preview=True)
+        elif 'shortlink' in settings.keys() and 'tutorial' not in settings.keys():
+            su = settings['shortlink']
+            sa = settings['shortlink_api']
+            return await message.reply_text(f"<b><u>ᴄᴜʀʀᴇɴᴛ  ꜱᴛᴀᴛᴜꜱ<u> 📊\n\nᴡᴇʙꜱɪᴛᴇ : <code>{su}</code>\n\nᴀᴘɪ : <code>{sa}</code>\n\nᴜꜱᴇ /set_tutorial ᴄᴏᴍᴍᴀɴᴅ ᴛᴏ ꜱᴇᴛ ʏᴏᴜʀ ᴛᴜᴛᴏʀɪᴀʟ.")
+        elif 'shortlink' not in settings.keys() and 'tutorial' in settings.keys():
+            st = settings['tutorial']
+            return await message.reply_text(f"<b>ᴛᴜᴛᴏʀɪᴀʟ : <code>{st}</code>\n\nᴜꜱᴇ  /shortlink  ᴄᴏᴍᴍᴀɴᴅ  ᴛᴏ  ᴄᴏɴɴᴇᴄᴛ  ʏᴏᴜʀ  ꜱʜᴏʀᴛɴᴇʀ</b>")
+        else:
+            return await message.reply_text("ꜱʜᴏʀᴛɴᴇʀ ᴀɴᴅ ᴛᴜᴛᴏʀɪᴀʟ ᴀʀᴇ ɴᴏᴛ ᴄᴏɴɴᴇᴄᴛᴇᴅ.\n\nᴄʜᴇᴄᴋ /set_tutorial  ᴀɴᴅ  /shortlink  ᴄᴏᴍᴍᴀɴᴅ.")
 
 
 @Client.on_message(filters.command("set_tutorial"))

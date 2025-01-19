@@ -94,9 +94,19 @@ class Database:
     async def get_all_users(self):
         return self.col.find({})
     
+    async def get_all_users_pr(self):
+        all_users = self.users.find({})
+        # all_users = self.col.find({})
+        return all_users
     async def update_user(self, user_data):
         await self.users.update_one({"id": user_data["id"]}, {"$set": user_data}, upsert=True)
     
+    async def get_all_prime_users(self):
+        # Get current time in UTC
+        current_time = datetime.datetime.utcnow()
+        prime_users = self.users.find({"expiry_time": {"$gt": current_time}})
+        return prime_users
+
     async def has_prime_status(self, user_id):
         user_data = await self.get_user(user_id)
         if user_data:
@@ -111,7 +121,7 @@ class Database:
         return False
         
     async def remove_prime_status(self, user_id):
-        return await self.update_one(
+        return await self.users.update_one(
             {"id": user_id}, {"$set": {"expiry_time": None}}
         )
     
