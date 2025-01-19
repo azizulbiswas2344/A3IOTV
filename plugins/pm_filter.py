@@ -545,7 +545,7 @@ async def qualities_cb_handler(client: Client, query: CallbackQuery):
 async def filter_qualities_cb_handler(client: Client, query: CallbackQuery):
     try:
         _, qual, key = query.data.split("#")
-        curr_time = datetime.now(pytz.timezone('Asia/Kolkata')).time()
+        curr_time = datetime.now(pytz.timezone('Asia/Dhaka')).time()
         search = FRESH.get(key)
         search = search.replace("_", " ")
         baal = qual in search
@@ -828,7 +828,7 @@ async def seasons_cb_handler(client: Client, query: CallbackQuery):
 async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
     try:
         _, seas, key = query.data.split("#")
-        curr_time = datetime.now(pytz.timezone('Asia/Kolkata')).time()
+        curr_time = datetime.now(pytz.timezone('Asia/Dhaka')).time()
         search = FRESH.get(key)
         search = search.replace("_", " ")
         sea = ""
@@ -1141,7 +1141,7 @@ async def languages_cb_handler(client: Client, query: CallbackQuery):
 async def filter_languages_cb_handler(client: Client, query: CallbackQuery):
     try:
         _, lang, key = query.data.split("#")
-        curr_time = datetime.now(pytz.timezone('Asia/Kolkata')).time()
+        curr_time = datetime.now(pytz.timezone('Asia/Dhaka')).time()
         search = FRESH.get(key)
         search = search.replace("_", " ")
         baal = lang in search

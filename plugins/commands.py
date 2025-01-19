@@ -931,7 +931,7 @@ async def save_template(client, message):
 async def add_prime_status(client, message):
     try:
         if len(message.command) == 4:
-            time_zone = datetime.datetime.now(pytz.timezone("Asia/Kolkata"))
+            time_zone = datetime.datetime.now(pytz.timezone("Asia/Dhaka"))
             current_time = time_zone.strftime("%d-%m-%Y\n⏱️ Joining time : %I:%M:%S %p") 
             user_id = int(message.command[1])  # Convert the user_id to integer
             user = await client.get_users(user_id)
@@ -943,7 +943,7 @@ async def add_prime_status(client, message):
                 await db.update_user(user_data)  # Use the update_user method to update or insert user data
                 data = await db.get_user(user_id)
                 expiry = data.get("expiry_time")   
-                expiry_str_in_ist = expiry.astimezone(pytz.timezone("Asia/Kolkata")).strftime("%d-%m-%Y\n⏱️ ᴇxᴘɪʀʏ ᴛɪᴍᴇ : %I:%M:%S %p")         
+                expiry_str_in_ist = expiry.astimezone(pytz.timezone("Asia/Dhaka")).strftime("%d-%m-%Y\n⏱️ ᴇxᴘɪʀʏ ᴛɪᴍᴇ : %I:%M:%S %p")         
                 await message.reply_text(f"{user.mention} Added to Prime list ✅\n\n👤 Name : {user.mention}\n⚡ ID : <code>{user_id}</code>\n⏰ Limit : <code>{time}</code>\n\n⏳ Joining Date : {current_time}\n\n⌛️ Exp Date : {expiry_str_in_ist}", disable_web_page_preview=True)
                 await client.send_message(
                     chat_id=user_id,
@@ -983,10 +983,10 @@ async def get_prime_status(client, message):
         if data and data.get("expiry_time"):
             #expiry_time = datetime.datetime.now() + datetime.timedelta(seconds=data)
             expiry = data.get("expiry_time") 
-            expiry_ist = expiry.astimezone(pytz.timezone("Asia/Kolkata"))
-            expiry_str_in_ist = expiry.astimezone(pytz.timezone("Asia/Kolkata")).strftime("%d-%m-%Y\n⏱️ ᴇxᴘɪʀʏ ᴛɪᴍᴇ : %I:%M:%S %p")            
+            expiry_ist = expiry.astimezone(pytz.timezone("Asia/Dhaka"))
+            expiry_str_in_ist = expiry.astimezone(pytz.timezone("Asia/Dhaka")).strftime("%d-%m-%Y\n⏱️ ᴇxᴘɪʀʏ ᴛɪᴍᴇ : %I:%M:%S %p")            
             # Calculate time difference
-            current_time = datetime.datetime.now(pytz.timezone("Asia/Kolkata"))
+            current_time = datetime.datetime.now(pytz.timezone("Asia/Dhaka"))
             time_left = expiry_ist - current_time
             
             # Calculate days, hours, and minutes
@@ -1023,9 +1023,9 @@ async def prime_unser(client, message):
             if not expiry:
                 continue
 
-            expiry_ist = expiry.astimezone(pytz.timezone("Asia/Kolkata"))
+            expiry_ist = expiry.astimezone(pytz.timezone("Asia/Dhaka"))
             expiry_str_in_ist = expiry_ist.strftime("%d-%m-%Y\n⏱️ ᴇxᴘɪʀʏ ᴛɪᴍᴇ : %I:%M:%S %p")
-            current_time = datetime.datetime.now(pytz.timezone("Asia/Kolkata"))
+            current_time = datetime.datetime.now(pytz.timezone("Asia/Dhaka"))
             time_left = expiry_ist - current_time
 
             days = time_left.days
@@ -1072,9 +1072,9 @@ async def prime_unser(client, message):
 
 #             if data and data.get("expiry_time"):
 #                 expiry = data.get("expiry_time")
-#                 expiry_ist = expiry.astimezone(pytz.timezone("Asia/Kolkata"))
-#                 expiry_str_in_ist = expiry.astimezone(pytz.timezone("Asia/Kolkata")).strftime("%d-%m-%Y\n⏱️ ᴇxᴘɪʀʏ ᴛɪᴍᴇ : %I:%M:%S %p")
-#                 current_time = datetime.datetime.now(pytz.timezone("Asia/Kolkata"))
+#                 expiry_ist = expiry.astimezone(pytz.timezone("Asia/Dhaka"))
+#                 expiry_str_in_ist = expiry.astimezone(pytz.timezone("Asia/Dhaka")).strftime("%d-%m-%Y\n⏱️ ᴇxᴘɪʀʏ ᴛɪᴍᴇ : %I:%M:%S %p")
+#                 current_time = datetime.datetime.now(pytz.timezone("Asia/Dhaka"))
 #                 time_left = expiry_ist - current_time
 #                 days = time_left.days
 #                 hours, remainder = divmod(time_left.seconds, 3600)
@@ -1097,7 +1097,7 @@ async def prime_unser(client, message):
 #         logging.error(f"Error editing message: {e}")
 #         await aa.edit_text("Failed to send the user list.")
 
-@Client.on_message(filters.command("myplan"))
+@Client.on_message(filters.command("exprired"))
 async def myplan(client, message):
     user = message.from_user.mention 
     user_id = message.from_user.id
@@ -1105,10 +1105,10 @@ async def myplan(client, message):
     if data and data.get("expiry_time"):
         #expiry_time = datetime.datetime.now() + datetime.timedelta(seconds=data)
         expiry = data.get("expiry_time") 
-        expiry_ist = expiry.astimezone(pytz.timezone("Asia/Kolkata"))
-        expiry_str_in_ist = expiry.astimezone(pytz.timezone("Asia/Kolkata")).strftime("%d-%m-%Y\n⏱️ ᴇxᴘɪʀʏ ᴛɪᴍᴇ : %I:%M:%S %p")            
+        expiry_ist = expiry.astimezone(pytz.timezone("Asia/Dhaka"))
+        expiry_str_in_ist = expiry.astimezone(pytz.timezone("Asia/Dhaka")).strftime("%d-%m-%Y\n⏱️ ᴇxᴘɪʀʏ ᴛɪᴍᴇ : %I:%M:%S %p")            
         # Calculate time difference
-        current_time = datetime.datetime.now(pytz.timezone("Asia/Kolkata"))
+        current_time = datetime.datetime.now(pytz.timezone("Asia/Dhaka"))
         time_left = expiry_ist - current_time
             
         # Calculate days, hours, and minutes
@@ -1122,6 +1122,39 @@ async def myplan(client, message):
     else:
         await message.reply_text(f"ʜᴇʏ {user},\n\nʏᴏᴜ ᴅᴏ ɴᴏᴛ ʜᴀᴠᴇ ᴀɴʏ ᴀᴄᴛɪᴠᴇ ᴘʀɪᴍᴇ ᴘʟᴀɴs, ɪꜰ ʏᴏᴜ ᴡᴀɴᴛ ᴛᴏ ᴛᴀᴋᴇ ᴘʀɪᴍᴇ ᴛʜᴇɴ ᴄʟɪᴄᴋ ᴏɴ ʙᴇʟᴏᴡ ʙᴜᴛᴛᴏɴ 👇",
 	reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("💸 ᴄʜᴇᴄᴋᴏᴜᴛ ᴘʀɪᴍᴇ ᴘʟᴀɴꜱ 💸", callback_data='seeplans')]]))			 
+
+@Client.on_message(filters.command("myplan"))
+async def myplan(client, message):
+    user = message.from_user.mention 
+    user_id = message.from_user.id
+    data = await db.get_user(user_id)  # Fetch user data from the database
+
+    if data and data.get("expiry_time"):
+        expiry = data.get("expiry_time")
+        expiry_ist = expiry.astimezone(pytz.timezone("Asia/Dhaka"))
+        current_time = datetime.datetime.now(pytz.timezone("Asia/Dhaka"))
+
+        # Check if the plan has expired
+        if expiry_ist <= current_time:
+            # Remove expired subscription data
+            await db.remove_prime_status(user_id)
+            await message.reply_text(
+                f"ʜᴇʏ {user},\n\nʏᴏᴜʀ ᴘʀɪᴍᴇ ᴘʟᴀɴ ʜᴀꜱ ᴇxᴘɪʀᴇᴅ.\nᴄʟɪᴄᴋ /plan ᴛᴏ ʀᴇɴᴇᴡ."
+            )
+            return
+
+        # Calculate time left
+        time_left = expiry_ist - current_time
+        days = time_left.days
+        hours, remainder = divmod(time_left.seconds, 3600)
+        minutes, seconds = divmod(remainder, 60)
+        time_left_str = f"{days} ᴅᴀʏꜱ, {hours} ʜᴏᴜʀꜱ, {minutes} ᴍɪɴᴜᴛᴇꜱ"
+
+        await message.reply_text(
+            f"👑 ᴘʀɪᴍᴇ ᴜꜱᴇʀ ᴅᴀᴛᴀ :\n\n👤 Name : {user}\n⚡ ID : <code>{user_id}</code>\n⏰ Time Left : {time_left_str}\n⌛️ Exp Date : {expiry_ist.strftime('%d-%m-%Y %I:%M:%S %p')}"
+        )
+    else:
+        await message.reply_text(f"ʜᴇʏ {user},\n\nʏᴏᴜ ᴅᴏ ɴᴏᴛ ʜᴀᴠᴇ ᴀɴʏ ᴀᴄᴛɪᴠᴇ ᴘʀɪᴍᴇ ᴘʟᴀɴꜱ.")
 
 @Client.on_message(filters.command("plan"))
 async def plan(client, message):
