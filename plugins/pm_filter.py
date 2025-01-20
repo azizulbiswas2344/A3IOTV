@@ -110,17 +110,12 @@ logger = logging.getLogger(__name__)
 
 @Client.on_message(filters.group & filters.text & filters.incoming)
 async def give_filter(client, message):
-    # k = await manual_filters(client, message)
-    # if k == False:
-    try:
-        chatID = message.chat.id
-        lazy_chatID = await db.get_chat(int(chatID))
-        if lazy_chatID['is_lazy_verified']:
+    k = await manual_filters(client, message)
+    if k == False:
+        try:
             await auto_filter(client, message)
-    except Exception as e:
-        print(f"ERROR: {e}")
-
-
+        except Exception as e:
+            print(f"ERROR: {e}")
 
 @Client.on_callback_query(filters.regex('rename'))
 async def rename(bot,update):
@@ -438,7 +433,7 @@ async def next_page(bot, query):
         ])
     btn.insert(0,
         [ 
-	    InlineKeyboardButton(text="⚡ ʜᴏᴡ ᴛᴏ ᴅᴏᴡɴʟᴏᴀᴅ ⚡", url='https://telegram.me/+lI9zStHfHlllNjQ1'),
+	    InlineKeyboardButton(text="⚡ ʜᴏᴡ ᴛᴏ ᴅᴏᴡɴʟᴏᴀᴅ ⚡", url='https://telegram.me/+W1v7gkr5HAhmOWM1'),
         ] 
     )
     if 0 < offset <= 10:
@@ -550,7 +545,7 @@ async def qualities_cb_handler(client: Client, query: CallbackQuery):
 async def filter_qualities_cb_handler(client: Client, query: CallbackQuery):
     try:
         _, qual, key = query.data.split("#")
-        curr_time = datetime.now(pytz.timezone('Asia/Kolkata')).time()
+        curr_time = datetime.now(pytz.timezone('Asia/Dhaka')).time()
         search = FRESH.get(key)
         search = search.replace("_", " ")
         baal = qual in search
@@ -758,7 +753,7 @@ async def filter_qualities_cb_handler(client: Client, query: CallbackQuery):
         ])
         btn.insert(0,
             [ 
-            InlineKeyboardButton(text="⚡ ʜᴏᴡ ᴛᴏ ᴅᴏᴡɴʟᴏᴀᴅ ⚡", url='https://telegram.me/+lI9zStHfHlllNjQ1'),
+            InlineKeyboardButton(text="⚡ ʜᴏᴡ ᴛᴏ ᴅᴏᴡɴʟᴏᴀᴅ ⚡", url='https://telegram.me/+W1v7gkr5HAhmOWM1'),
             ] 
         )
 
@@ -833,7 +828,7 @@ async def seasons_cb_handler(client: Client, query: CallbackQuery):
 async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
     try:
         _, seas, key = query.data.split("#")
-        curr_time = datetime.now(pytz.timezone('Asia/Kolkata')).time()
+        curr_time = datetime.now(pytz.timezone('Asia/Dhaka')).time()
         search = FRESH.get(key)
         search = search.replace("_", " ")
         sea = ""
@@ -1071,7 +1066,7 @@ async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
         ])
         btn.insert(0,
         [ 
-	    InlineKeyboardButton(text="⚡ ʜᴏᴡ ᴛᴏ ᴅᴏᴡɴʟᴏᴀᴅ ⚡", url='https://telegram.me/+lI9zStHfHlllNjQ1'),
+	    InlineKeyboardButton(text="⚡ ʜᴏᴡ ᴛᴏ ᴅᴏᴡɴʟᴏᴀᴅ ⚡", url='https://telegram.me/+W1v7gkr5HAhmOWM1'),
         ] 
     )
 
@@ -1146,7 +1141,7 @@ async def languages_cb_handler(client: Client, query: CallbackQuery):
 async def filter_languages_cb_handler(client: Client, query: CallbackQuery):
     try:
         _, lang, key = query.data.split("#")
-        curr_time = datetime.now(pytz.timezone('Asia/Kolkata')).time()
+        curr_time = datetime.now(pytz.timezone('Asia/Dhaka')).time()
         search = FRESH.get(key)
         search = search.replace("_", " ")
         baal = lang in search
@@ -1356,7 +1351,7 @@ async def filter_languages_cb_handler(client: Client, query: CallbackQuery):
         ])
         btn.insert(0,
         [ 
-	    InlineKeyboardButton(text="⚡ ʜᴏᴡ ᴛᴏ ᴅᴏᴡɴʟᴏᴀᴅ ⚡", url='https://telegram.me/+lI9zStHfHlllNjQ1'),
+	    InlineKeyboardButton(text="⚡ ʜᴏᴡ ᴛᴏ ᴅᴏᴡɴʟᴏᴀᴅ ⚡", url='https://telegram.me/+W1v7gkr5HAhmOWM1'),
         ])
 
         if offset != "":
@@ -1637,6 +1632,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                     chat_id=query.from_user.id,
                     file_id=file_id,
                     caption=f_caption,
+                    reply_markup=keyboard,
                     protect_content=True if ident == "filep" else False 
                 )
                 btnl = [[
@@ -1685,80 +1681,32 @@ async def cb_handler(client: Client, query: CallbackQuery):
             chat_id=query.from_user.id,
             file_id=file_id,
             caption=f_caption,
+            reply_markup=keyboard,
             protect_content=True if ident == 'checksubp' else False
         )
     elif query.data == "pages":
         await query.answer()
-
-    if query.data in ["🤬", "👎", "🖕", "💩"]:
-        user_id = query.from_user.id  # Get user ID
-
-        try:
-            # Attempt to update the vote
-            vote_successful = await db.update_vote(query.data, user_id)
-
-            if not vote_successful:
-                await query.answer('❌Dhakka mukki nhi krna ka mitron ! Ab kal VOTE dene aana 🎅.', show_alert=True)
-                return
-
-            # Fetch the updated votes
-            votes = await db.get_votes()
-
-            # Update the inline keyboard with the new vote counts
-            buttons = [[
-                    InlineKeyboardButton(f"🤬: {votes['🤬']+408}", callback_data="🤬"),
-                    InlineKeyboardButton(f"👎: {votes['👎']+209}", callback_data="👎"),
-                    InlineKeyboardButton(f"🖕: {votes['🖕']+356}", callback_data="🖕"),
-                    InlineKeyboardButton(f"💩: {votes['💩']+199}", callback_data="💩"),
-                    ],
-                    [
-                    InlineKeyboardButton('⛱ ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ɢʀᴏᴜᴘs ⛱', url=f'http://t.me/{temp.U_NAME}?startgroup=true')
-                    ],
-                    [
-                    InlineKeyboardButton('𓆩• ᴄʜᴀɴɴᴇʟ •𓆪', url=f'https://t.me/{MAIN_CHANNEL_USRNM}'),
-                    InlineKeyboardButton('𓆩• ɢʀᴏᴜᴘ •𓆪', url=f'https://t.me/{MOVIE_GROUP_USERNAME}'),
-                    ],[
-                    InlineKeyboardButton('𓆩• ʜᴇʟᴘ •𓆪', callback_data='help'),
-                    InlineKeyboardButton('𓆩• ꜱᴜᴘᴘᴏʀᴛ •𓆪', callback_data='leech_url_help'),
-                    ],[
-                    InlineKeyboardButton('𓆩• ᴀʙᴏᴜᴛ |&| ᴅᴇᴠᴇʟᴏᴘᴇʀ •𓆪', callback_data='source'),
-                    ]]
-
-            # Send the updated message with new button values
-            reply_markup = InlineKeyboardMarkup(buttons)
-            await query.message.edit_text(
-                text=script.START_TXT.format(query.from_user.mention, temp.U_NAME, temp.B_NAME),
-                reply_markup=reply_markup,
-                parse_mode=enums.ParseMode.HTML
-            )
-            await query.answer('♥️ Vote Updated! ♥️')
-
-        except Exception as e:
-            print(f"Error updating vote: {e}")
-
     elif query.data == "start":
-        votes = await db.get_votes()
-        if not votes:  # If no votes are found, show a default 0
-            votes = {emoji: 0 for emoji in ["🤬", "👎", "🖕", "💩"]}
-
-        buttons = [[
-                InlineKeyboardButton(f"🤬: {votes['🤬']+408}", callback_data="🤬"),
-                InlineKeyboardButton(f"👎: {votes['👎']+209}", callback_data="👎"),
-                InlineKeyboardButton(f"🖕: {votes['🖕']+356}", callback_data="🖕"),
-                InlineKeyboardButton(f"💩: {votes['💩']+199}", callback_data="💩"),
-                ],
-                [
-                InlineKeyboardButton('⛱ ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ɢʀᴏᴜᴘs ⛱', url=f'http://t.me/{temp.U_NAME}?startgroup=true')
-                ],
-                [
-                InlineKeyboardButton('𓆩• ᴄʜᴀɴɴᴇʟ •𓆪', url=f'https://t.me/{MAIN_CHANNEL_USRNM}'),
-                InlineKeyboardButton('𓆩• ɢʀᴏᴜᴘ •𓆪', url=f'https://t.me/{MOVIE_GROUP_USERNAME}')
-                ],[
-                InlineKeyboardButton('𓆩• ʜᴇʟᴘ •𓆪', callback_data='help'),
-                InlineKeyboardButton('𓆩• ꜱᴜᴘᴘᴏʀᴛ •𓆪', callback_data='leech_url_help'),
-                ],[
-                InlineKeyboardButton('𓆩• ᴀʙᴏᴜᴛ |&| ᴅᴇᴠᴇʟᴏᴘᴇʀ •𓆪', callback_data='source'),
-                ]]
+        if query.from_user.id in ADMINS:
+            buttons = [[
+                InlineKeyboardButton('↖️ Aᴅᴅ Mᴇ Tᴏ Yᴏᴜʀ Gʀᴏᴜᴘs ↗️', url=f'http://t.me/{temp.U_NAME}?startgroup=true')
+            ], [
+                InlineKeyboardButton('🧞‍♀️ Sᴇᴀʀᴄʜ', switch_inline_query_current_chat=''),
+                    InlineKeyboardButton('🔍 Gʀᴏᴜᴘ', url=f'https://t.me/{MOVIE_GROUP_USERNAME}')
+            ], [
+                InlineKeyboardButton('🙆🏻 Hᴇʟᴘ 🦾', callback_data='help'),
+                InlineKeyboardButton('🎁 Hᴇʟᴘ++', callback_data='leech_url_help'),
+            ],[
+                InlineKeyboardButton('⚙ Sᴇᴛᴛɪɴɢs', callback_data='openSettings'),
+                InlineKeyboardButton('♥️ Aʙᴏᴜᴛ', callback_data='about')
+            ]]
+        else: 
+            buttons = [[
+                InlineKeyboardButton('↖️ Aᴅᴅ Mᴇ Tᴏ Yᴏᴜʀ Gʀᴏᴜᴘs ↗️', url=f'http://t.me/{temp.U_NAME}?startgroup=true')
+            ], [
+                InlineKeyboardButton('🧞‍♀️ Sᴇᴀʀᴄʜ', switch_inline_query_current_chat=''),
+                    InlineKeyboardButton('🔍 Gʀᴏᴜᴘ', url=f'https://t.me/{MOVIE_GROUP_USERNAME}')
+            ]]
 
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
@@ -1769,18 +1717,15 @@ async def cb_handler(client: Client, query: CallbackQuery):
         await query.answer('♥️ Thank You LazyDeveloper ♥️')
     elif query.data == "help":
         buttons = [[
-            InlineKeyboardButton('𓆩• ᴍᴀɴᴜᴀʟ ꜰɪʟᴛᴇʀ', callback_data='manuelfilter'),
-            InlineKeyboardButton('ᴀᴜᴛᴏ ꜰɪʟᴛᴇʀ •𓆪', callback_data='autofilter')
+            InlineKeyboardButton('Manual Filter', callback_data='manuelfilter'),
+            InlineKeyboardButton('Auto Filter', callback_data='autofilter')
         ], [
-            InlineKeyboardButton('𓆩• ᴄᴏɴɴᴇᴄᴛɪᴏɴ', callback_data='coct'),
-            InlineKeyboardButton('ᴇxᴛʀᴀ ᴍᴏᴅᴇꜱ •𓆪', callback_data='extra')
+            InlineKeyboardButton('Connection', callback_data='coct'),
+            InlineKeyboardButton('Extra Mods', callback_data='extra')
         ], [
-            InlineKeyboardButton('𓆩• 😋 ʜᴇʟᴘ++', callback_data='leech_url_help'),
-            InlineKeyboardButton('ꜱᴛᴀᴛᴜꜱ 🦠 •𓆪', callback_data='stats')
-        ],[
-            InlineKeyboardButton('𓆩• 🏠 ʜᴏᴍᴇ •𓆪', callback_data='start'),
-        ]
-        ]
+            InlineKeyboardButton('🏠 Home', callback_data='start'),
+            InlineKeyboardButton('🦠 Status', callback_data='stats')
+        ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
             text=script.HELP_TXT.format(query.from_user.mention),
@@ -1789,27 +1734,22 @@ async def cb_handler(client: Client, query: CallbackQuery):
         )
     elif query.data == "about":
         buttons = [[
-                InlineKeyboardButton('𓆩• 🔍 ɢʀᴏᴜᴘ', url=f'https://t.me/{MOVIE_GROUP_USERNAME}'),
-            InlineKeyboardButton('ꜱᴏᴜʀᴄᴇ ♥️ •𓆪', callback_data='source')
+                InlineKeyboardButton('🔍 Group​​​​​', url=f'https://t.me/{MOVIE_GROUP_USERNAME}'),
+            InlineKeyboardButton('♥️ Source', callback_data='source')
         ], [
-            InlineKeyboardButton('𓆩• 🏠 Home •𓆪', callback_data='start'),
+            InlineKeyboardButton('🏠 Home', callback_data='start'),
+            InlineKeyboardButton('🔐 Close', callback_data='close_data')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
-            text=script.DEVELOPER,
+            text=script.ABOUT_TXT.format(temp.B_NAME),
             reply_markup=reply_markup,
             parse_mode=enums.ParseMode.HTML
         )
-    
     elif query.data == "source":
-        buttons = [
-            [
-            InlineKeyboardButton('𓆩• LazyDeveloper •𓆪', url='https://t.me/LazyDeveloperr')
-        ],
-            [
-            InlineKeyboardButton('••👩‍🦯 ʙᴀᴄᴋ ••', callback_data='about')
-        ]
-        ]
+        buttons = [[
+            InlineKeyboardButton('👩‍🦯 Back', callback_data='about')
+        ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
             text=script.SOURCE_TXT,
@@ -1818,8 +1758,8 @@ async def cb_handler(client: Client, query: CallbackQuery):
         )
     elif query.data == "manuelfilter":
         buttons = [[
-            InlineKeyboardButton('𓆩• 🚪 ʙᴀᴄᴋ', callback_data='help'),
-            InlineKeyboardButton('⏹️ Buttons •𓆪', callback_data='button')
+            InlineKeyboardButton('🚪 Back', callback_data='help'),
+            InlineKeyboardButton('⏹️ Buttons', callback_data='button')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
@@ -1829,7 +1769,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         )
     elif query.data == "button":
         buttons = [[
-            InlineKeyboardButton('𓆩• 🚪 ʙᴀᴄᴋ •𓆪', callback_data='manuelfilter')
+            InlineKeyboardButton('🚪 Back', callback_data='manuelfilter')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
@@ -1838,27 +1778,23 @@ async def cb_handler(client: Client, query: CallbackQuery):
             parse_mode=enums.ParseMode.HTML
         )
     elif query.data == "autofilter":
-        try:
-            buttons = [[
-            InlineKeyboardButton('𓆩• 🚪 ʙᴀᴄᴋ •𓆪', callback_data='help')
-            ]]
-            reply_markup = InlineKeyboardMarkup(buttons)
-            await query.message.edit_text(
-                text=script.AUTOFILTER_TXT,
-                reply_markup=reply_markup,
-                parse_mode=enums.ParseMode.HTML
-            )
-        except Exception as e:
-            print(e)
+        buttons = [[
+            InlineKeyboardButton('🚪 Back', callback_data='help')
+        ]]
+        reply_markup = InlineKeyboardMarkup(buttons)
+        await query.message.edit_text(
+            text=script.AUTOFILTER_TXT,
+            reply_markup=reply_markup,
+            parse_mode=enums.ParseMode.HTML
+        )
 
     elif query.data.startswith("sendfiles"):
-        # print('i am hit in pm_filter')
         user = query.from_user.id
         ident, key = query.data.split("#")
         settings = await get_settings(query.message.chat.id)
         try:
             if settings['url_mode'] and not await db.has_prime_status(user):
-                await query.answer(url=f"https://telegram.me/{temp.U_NAME}?start=sendfiles1_{key}") 
+                await query.answer(url=f"https://telegram.me/{temp.U_NAME}?start= {key}") 
                 return
             else:
                 await query.answer(url=f"https://telegram.me/{temp.U_NAME}?start=allfiles_{key}")
@@ -1896,11 +1832,12 @@ async def cb_handler(client: Client, query: CallbackQuery):
     elif query.data == "leech_url_help":
         buttons = InlineKeyboardMarkup(
             [[
-            InlineKeyboardButton('𓆩• ♥️ ᴀʙᴏᴜᴛ', callback_data='about'),
-            InlineKeyboardButton('ᴏᴘᴇɴ ꜱᴇᴛᴛɪɴɢꜱ •𓆪', callback_data='openSettings'),
+            InlineKeyboardButton('🏠 Home', callback_data='start'),
+            InlineKeyboardButton('♥️ Aʙᴏᴜᴛ', callback_data='about')
             ],[
+            InlineKeyboardButton('Open settings', callback_data='openSettings')
             ],[
-            InlineKeyboardButton('𓆩• 🏠 ʜᴏᴍᴇ •𓆪', callback_data='start'),
+            InlineKeyboardButton('🔐 Close', callback_data='close_data')
             ]]
             
         )
@@ -2265,8 +2202,9 @@ async def cb_handler(client: Client, query: CallbackQuery):
         await query.answer('👇👇 Please select anyone of the following  options 👇👇', show_alert=True)
     
     elif query.data == "seeplans":
-        btn = [[
-            InlineKeyboardButton('🗑️ ᴄʟᴏꜱᴇ 🗑️', callback_data='close_data')
+        btn = [
+            [InlineKeyboardButton("📲 ꜱᴇɴᴅ ᴘᴀʏᴍᴇɴᴛ ꜱᴄʀᴇᴇɴꜱʜᴏᴛ ʜᴇʀᴇ", url=f"https://t.me/{ADMIN_USRNM}")],
+            [InlineKeyboardButton("❌ ᴄʟᴏꜱᴇ ❌", callback_data="close_data")
         ]]
         reply_markup = InlineKeyboardMarkup(btn)
         await query.message.reply_photo(
@@ -2278,7 +2216,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
 
     elif query.data == "coct":
         buttons = [[
-            InlineKeyboardButton('𓆩• 🚪 ʙᴀᴄᴋ •𓆪', callback_data='help')
+            InlineKeyboardButton('🚪 Back', callback_data='help')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
@@ -2288,8 +2226,8 @@ async def cb_handler(client: Client, query: CallbackQuery):
         )
     elif query.data == "extra":
         buttons = [[
-            InlineKeyboardButton('𓆩• 🚪 ʙᴀᴄᴋ ', callback_data='help'),
-            InlineKeyboardButton('👑 ᴀᴅᴍɪɴ •𓆪', callback_data='admin')
+            InlineKeyboardButton('🚪 Back', callback_data='help'),
+            InlineKeyboardButton('👑 Admin', callback_data='admin')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
@@ -2299,7 +2237,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         )
     elif query.data == "admin":
         buttons = [[
-            InlineKeyboardButton('𓆩• 🚪 ʙᴀᴄᴋ •𓆪', callback_data='extra')
+            InlineKeyboardButton('🚪 Back', callback_data='extra')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
@@ -2309,8 +2247,8 @@ async def cb_handler(client: Client, query: CallbackQuery):
         )
     elif query.data == "stats":
         buttons = [[
-            InlineKeyboardButton('𓆩• 🚪 ʙᴀᴄᴋ', callback_data='help'),
-            InlineKeyboardButton('♻️ •𓆪', callback_data='rfrsh')
+            InlineKeyboardButton('🚪 Back', callback_data='help'),
+            InlineKeyboardButton('♻️', callback_data='rfrsh')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         total = await Media.count_documents()
@@ -2333,7 +2271,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             InlineKeyboardButton("1 / 3", callback_data="alertuser"),
             InlineKeyboardButton("Next ⏭", callback_data="shortlink_info2")
             ],[
-            InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data='start')
+            InlineKeyboardButton('🏠 Home', callback_data='start')
             ]]
             reply_markup = InlineKeyboardMarkup(btn)
             await query.message.edit_text(
@@ -2347,7 +2285,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             InlineKeyboardButton("2 / 3", callback_data="alertuser"),
             InlineKeyboardButton("Next ⏭", callback_data="shortlink_info3")
             ],[
-            InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data='start')
+            InlineKeyboardButton('🏠 Home', callback_data='start')
             ]]
             reply_markup = InlineKeyboardMarkup(btn)
             await query.message.edit_text(
@@ -2360,7 +2298,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             InlineKeyboardButton("🚪 Back", callback_data="shortlink_info2"),
             InlineKeyboardButton("3 / 3", callback_data="alertuser")
             ],[
-            InlineKeyboardButton('🏠 ʜᴏᴍᴇ', callback_data='start')
+            InlineKeyboardButton('🏠 Home', callback_data='start')
             ]]
             reply_markup = InlineKeyboardMarkup(btn)
             await query.message.edit_text(
@@ -2413,8 +2351,8 @@ async def cb_handler(client: Client, query: CallbackQuery):
     elif query.data == "rfrsh":
         await query.answer("Fetching MongoDb DataBase")
         buttons = [[
-            InlineKeyboardButton('𓆩• 👩‍🦯 Back', callback_data='help'),
-            InlineKeyboardButton('refresh •𓆪', callback_data='rfrsh')
+            InlineKeyboardButton('👩‍🦯 Back', callback_data='help'),
+            InlineKeyboardButton('refresh', callback_data='rfrsh')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         total = await Media.count_documents()
@@ -2497,7 +2435,6 @@ async def cb_handler(client: Client, query: CallbackQuery):
 
 async def auto_filter(client, msg, spoll=False):
     if not spoll:
-        print("Hit here")
         message = msg
         settings = await get_settings(message.chat.id)
         if message.text.startswith("/"): return  # ignore commands
@@ -2731,7 +2668,7 @@ async def auto_filter(client, msg, spoll=False):
     ])
     btn.insert(0,
     [ 
-    InlineKeyboardButton(text="⚡ ʜᴏᴡ ᴛᴏ ᴅᴏᴡɴʟᴏᴀᴅ ⚡", url='https://telegram.me/+lI9zStHfHlllNjQ1'),
+    InlineKeyboardButton(text="⚡ ʜᴏᴡ ᴛᴏ ᴅᴏᴡɴʟᴏᴀᴅ ⚡", url='https://telegram.me/+W1v7gkr5HAhmOWM1'),
     ])
 
     if offset != "":
@@ -2922,9 +2859,7 @@ async def auto_filter(client, msg, spoll=False):
         # selected_pic = random.choice(WSHPCS)
         # print("Selected photo URL:", selected_pic)
         # p = await message.reply_photo(photo=WSHPCS, caption=cap, reply_markup=InlineKeyboardMarkup(btn), has_spoiler=True)
-        # p = await message.reply_text(cap, reply_markup=InlineKeyboardMarkup(btn))
-        
-        p = await message.reply_photo(photo=random.choice(PICS), caption=cap, reply_markup=InlineKeyboardMarkup(btn))
+        p = await message.reply_text(cap, reply_markup=InlineKeyboardMarkup(btn))
         
         if SELF_DELETE:
             await asyncio.sleep(SELF_DELETE_SECONDS)

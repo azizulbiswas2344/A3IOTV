@@ -1,18 +1,17 @@
 class script(object):
-    START_TXT = """🤙 नमस्कार {},
-<spoiler>बीड़ी में तम्बाकू है, __ वाला डाकू हैं🤣 \n🙏 मित्रों नीचे दिए गए बटन पर वोट दे कर मुझे विजय बनाये !🙏                          .</spoiler>
+    START_TXT = """Wʜᴀᴛ's ᴜᴘ ᴄɪɴᴇᴍᴀ ʟᴏᴠᴇʀ ! {} I'ᴍ ʏᴏᴜʀ ʙᴇʟᴏᴠᴇᴅ <a href=https://t.me/{}>{}</a>.\n\nFᴀsᴛᴇɴ ʏᴏᴜʀ sᴇᴀᴛʙᴇʟᴛs! I'ᴍ ʜᴇʀᴇ ᴛᴏ ʙʀɪɴɢ ᴍᴏᴠɪᴇs ᴛᴏ ʏᴏᴜʀ Tᴇʟᴇɢʀᴀᴍ ɢʀᴏᴜᴘ ғᴀsᴛᴇʀ ᴛʜᴀɴ ᴀ Hᴏʟʟʏᴡᴏᴏᴅ ᴄᴀʀ ᴄʜᴀsᴇ. Lᴇᴛ's ʀᴏʟʟ! 🚗💨
 """
     LZTHMB_TEXT = """Hello {},
-Glad to see you here. It seems that you really love <a href=https://t.me/LazyDeveloperr >LazyDeveloper's</a> work.\n\n<b>Thumbnail extracting</b> feature will be available soon, please join <a href=https://t.me/LazyDeveloper>Dev Channel</a> and stay tuned for next <a href=https://t.me/LazyDeveloper>update</a>.\n\n  🐞 ══• ʀᴇᴘᴏʀᴛ ɪꜱꜱᴜᴇ •══ here: <a href=http://t.me/LazyDeveloperSupport>LazyDev Support</a>
+Glad to see you here. It seems that you really love <a href=https://t.me/ComanderAK >ComanderAK's</a> work.\n\n<b>Thumbnail extracting</b> feature will be available soon,\n  🐞 ══• ʀᴇᴘᴏʀᴛ ɪꜱꜱᴜᴇ •══ here: <a href=http://t.me/ComanderAK>ComanderAK</a>
     """
     LZLINK_TEXT = """Hey {},
-Glad to see you here. It seems that you really love <a href=https://t.me/LazyDeveloperr >LazyDeveloper's</a> work.\n\n<b>File to LiNK converting</b> feature will be available soon, please join <a href=https://t.me/LazyDeveloper>Dev Channel</a> and stay tuned for next <a href=https://t.me/LazyDeveloper>update</a>.\n\n  🐞 ══• ʀᴇᴘᴏʀᴛ ɪꜱꜱᴜᴇ •══ here: <a href=http://t.me/LazyDeveloperSupport>LazyDev Support</a>
+Glad to see you here. It seems that you really love <a href=https://t.me/ComanderAK >ComanderAK's</a> work.\n\n<b>File to LiNK converting</b> feature will be available soon,\n  🐞 ══• ʀᴇᴘᴏʀᴛ ɪꜱꜱᴜᴇ •══ here: <a href=http://t.me/ComanderAK>ComanderAK</a>
     """
     DNT_TEXT = """Hey sweetie {},
-Thanks for thinking about us.\nIt seems that you really love <a href=https://t.me/LazyDeveloperr >LazyDeveloper's</a> work.\n\n<b>For your kind information, we do not ask or force anyone for any kind of payment</b>. But if you really want to donate us then you can send money to us from below links...\n\n💵 Reach Donation Page : <a href=http://t.me/DonateLazyDeveloper>Click here...</a>\n\nT❤️ hank you so much..
+Thanks for thinking about us.\nIt seems that you really love <a href=https://t.me/ComanderAK >ComanderAK's</a> work.\n\n<b>For your kind information, we do not ask or force anyone for any kind of payment</b>. But if you really want to donate us then you can send money to us from below links...\n\n💵 Reach Donation Page : <a href=http://t.me/DonateLazyDeveloper>Click here...</a>\n\nT❤️ hank you so much..
     """
     REQ_AUTH_TEXT = """Hello {},
-\nSorry sweetie.. You must have to be the Authentic User to complete this operation...\n\n👮‍♀ REPORT ISSUE HERE: <a href=https://t.me/LazyDeveloperSupport>LazyDeveloper Support</a>\n\n
+\nSorry sweetie.. You must have to be the Authentic User to complete this operation...\n\n👮‍♀ ASK ADMIN FOR AUTH: <a href=https://t.me/comanderAK>ComanderAK</a>\n\n
     """
     SHORTLINK_INFO = """<b>
  ❗<u>ʜᴏᴡ ᴛᴏ ᴇᴀʀɴ ᴍᴏɴᴇʏ ᴜꜱɪɴɢ ʙᴏᴛ</u>❗
@@ -108,8 +107,7 @@ Here is the help for my COMMANDS."""
 
 """
     ABOUT_TXT = """✯ 𝕚𝕥𝕤❜𝕤 me: {}
-✯ OWNER: <a href=https://t.me/Hidden_Xman>👑 Hidden_Xman 👑</a>
-✯ 𝙲𝚁𝙴𝙰𝚃𝙾𝚁: <a href=https://t.me/LazyDeveloperr>🦋 LazyDeveloperr 🦋</a>
+✯ OWNER: <a href=https://t.me/ComanderAK>👑 ComanderAK 👑</a>
 ✯ 𝙻𝙸𝙱𝚁𝙰𝚁𝚈: 𝙿𝚈𝚁𝙾𝙶𝚁𝙰𝙼
 ✯ 𝙻𝙰𝙽𝙶𝚄𝙰𝙶𝙴: 𝙿𝚈𝚃𝙷𝙾𝙽 𝟹
 ✯ 𝙳𝙰𝚃𝙰 𝙱𝙰𝚂𝙴: 𝙼𝙾𝙽𝙶𝙾 𝙳𝙱
@@ -117,21 +115,10 @@ Here is the help for my COMMANDS."""
 ✯ 𝙱𝚄𝙸𝙻𝙳 𝚂𝚃𝙰𝚃𝚄𝚂: V 11 PRO
 """
 
-    SOURCE_TXT = """<b>📨NOTE:</b>
-- देवियों और सज्जनों... 
-अगर ये BOT पसंद आया तो अपना खुद का एक बॉट बना लो !! 
-मैंने, डेवलपर महोदय से बोला है की, इसका दाम अगर हजार से नीचे नहीं रखा तो, देश से बाहर निकलवा दूंगा...
+    SOURCE_TXT = """<b>NOTE:</b>
+<b>Owner:</b>
+- 👑 <a href=https://t.me/ComanderAK>ComanderAK</a> 👑
 
-नीचे उसका TELEGRAM USERNAME है !
-<spoiler>The one & only @LazyDeveloperr 💘</spoiler>
-"""
-    DEVELOPER = """<b>📨NOTE:</b>
-- देवियों और सज्जनों... 
-अगर ये BOT पसंद आया तो अपना खुद का एक बॉट बना लो !! 
-मैंने, डेवलपर महोदय से बोला है की, इसका दाम अगर हजार से नीचे नहीं रखा तो, देश से बाहर निकलवा दूंगा...
-
-नीचे उसका TELEGRAM USERNAME है !
-<spoiler>The one & only @LazyDeveloperr 💘</spoiler>
 """
     MANUELFILTER_TXT = """Help: <b>Filters</b>
 
@@ -160,17 +147,18 @@ Here is the help for my COMMANDS."""
 
 <b>Alert buttons:</b>
 <code>[Button Text](buttonalert:This is an alert message)</code>"""
-    
     AUTOFILTER_TXT = """Help: <b>Auto Filter</b>
+
 <b>NOTE:</b>
-1. Make me an admin in your channel if it's private.
-2. Ensure your channel does not contain restricted content (e.g., spam, porn, fake files).
-3. Forward the last message of the channel with quotes. I'll add the files to my database.
+1. 🇲​​​​​🇦​​​​​🇰​​​​​🇪​​​​​ 🇲​​​​​🇪​​​​​ 🇹​​​​​🇭​​​​​🇪​​​​​ 🇦​​​​​🇩​​​​​🇲​​​​​🇮​​​​​🇳​​​​​ 🇴​​​​​🇫​​​​​ 🇾​​​​​🇴​​​​​🇺​​​​​🇷​​​​​ 🇨​​​​​🇭​​​​​🇦​​​​​🇳​​​​​🇳​​​​​🇪​​​​​🇱​​​​​ 🇮​​​​​🇫​​​​​ 🇮​​​​​🇹​​​​​'🇸​​​​​ 🇵​​​​​🇷​​​​​🇮​​​​​🇻​​​​​🇦​​​​​🇹​​​​​🇪​​​​​.
+2. 🇲​​​​​🇦​​​​​🇰​​​​​🇪​​​​​ 🇸​​​​​🇺​​​​​🇷​​​​​🇪​​​​​ 🇹​​​​​🇭​​​​​🇦​​​​​🇹​​​​​ 🇾​​​​​🇴​​​​​🇺​​​​​🇷​​​​​ 🇨​​​​​🇭​​​​​🇦​​​​​🇳​​​​​🇳​​​​​🇪​​​​​🇱​​​​​ 🇩​​​​​🇴​​​​​🇪​​​​​🇸​​​​​ 🇳​​​​​🇴​​​​​🇹​​​​​ 🇨​​​​​🇴​​​​​🇳​​​​​🇹​​​​​🇦​​​​​🇮​​​​​🇳​​​​​🇸​​​​​ 🇨​​​​​🇦​​​​​🇲​​​​​🇷​​​​​🇮​​​​​🇵​​​​​🇸​​​​​, 🇵​​​​​🇴​​​​​🇷​​​​​🇳​​​​​ 🇦​​​​​🇳​​​​​🇩​​​​​ 🇫​​​​​🇦​​​​​🇰​​​​​🇪​​​​​ 🇫​​​​​🇮​​​​​🇱​​​​​🇪​​​​​🇸​​​​​.
+3. 🇫​​​​​🇴​​​​​🇷​​​​​🇼​​​​​🇦​​​​​🇷​​​​​🇩​​​​​ 🇹​​​​​🇭​​​​​🇪​​​​​ 🇱​​​​​🇦​​​​​🇸​​​​​🇹​​​​​ 🇲​​​​​🇪​​​​​🇸​​​​​🇸​​​​​🇦​​​​​🇬​​​​​🇪​​​​​ 🇹​​​​​🇴​​​​​ 🇲​​​​​🇪​​​​​ 🇼​​​​​🇮​​​​​🇹​​​​​🇭​​​​​ 🇶​​​​​🇺​​​​​🇴​​​​​🇹​​​​​🇪​​​​​🇸​​​​​.
+ 🇮​​​​​'🇱​​​​​🇱​​​​​ 🇦​​​​​🇩​​​​​🇩​​​​​ 🇦​​​​​🇱​​​​​🇱​​​​​ 🇹​​​​​🇭​​​​​🇪​​​​​ 🇫​​​​​🇮​​​​​🇱​​​​​🇪​​​​​🇸​​​​​ 🇮​​​​​🇳​​​​​ 🇹​​​​​🇭​​​​​🇦​​​​​🇹​​​​​ 🇨​​​​​🇭​​​​​🇦​​​​​🇳​​​​​🇳​​​​​🇪​​​​​🇱​​​​​ 🇹​​​​​🇴​​​​​ 🇲​​​​​🇾​​​​​ 🇩​​​​​🇧​​​​​.
 """
     CONNECTION_TXT = """Help: <b>Connections</b>
-<spoiler>
-- Used to connect bot to PM for managing filters
-- It helps to avoid spamming in groups
+
+- 🇺​​​​​🇸​​​​​🇪​​​​​🇩​​​​​ 🇹​​​​​🇴​​​​​ 🇨​​​​​🇴​​​​​🇳​​​​​🇳​​​​​🇪​​​​​🇨​​​​​🇹​​​​​ 🇧​​​​​🇴​​​​​🇹​​​​​ 🇹​​​​​🇴​​​​​ 🇵​​​​​🇲​​​​​ 🇫​​​​​🇴​​​​​🇷​​​​​ 🇲​​​​​🇦​​​​​🇳​​​​​🇦​​​​​🇬​​​​​🇮​​​​​🇳​​​​​🇬​​​​​ 🇫​​​​​🇮​​​​​🇱​​​​​🇹​​​​​🇪​​​​​🇷​​​​​🇸​​​​​ 
+- 🇮​​​​​🇹​​​​​ 🇭​​​​​🇪​​​​​🇱​​​​​🇵​​​​​🇸​​​​​ 🇹​​​​​🇴​​​​​ 🇦​​​​​🇻​​​​​🇴​​​​​🇮​​​​​🇩​​​​​ 🇸​​​​​🇵​​​​​🇦​​​​​🇲​​​​​🇲​​​​​🇮​​​​​🇳​​​​​🇬​​​​​ 🇮​​​​​🇳​​​​​ Gʀᴏᴜᴘ🇸​​​​​.
 
 <b>NOTE:</b>
 1. Only admins can add a connection.
@@ -180,10 +168,9 @@ Here is the help for my COMMANDS."""
 • /connect  - <code>connect a particular chat to your PM</code>
 • /disconnect  - <code>disconnect from a chat</code>
 • /connections - <code>list all your connections</code>
-</spoiler>
 """
     EXTRAMOD_TXT = """Help: <b>Extra Modules</b>
-<blockquote>
+
 <b>NOTE:</b>
 these are the extra features of Lazy Princess
 
@@ -191,11 +178,9 @@ these are the extra features of Lazy Princess
 • /id - <code>get id of a specified user.</code>
 • /info  - <code>get information about a user.</code>
 • /imdb  - <code>get the film information from IMDb source.</code>
-• /search  - <code>get the film information from various sources.</code>
-</blockquote>
-"""
-    ADMIN_TXT = """Help: <b>Admin Modes</b>
-<spoiler>
+• /search  - <code>get the film information from various sources.</code>"""
+    ADMIN_TXT = """Help: <b>Admin mods</b>
+
 <b>NOTE:</b>
 This module only works for my admins
 
@@ -210,13 +195,12 @@ This module only works for my admins
 • /ban  - <code>to ban a user.</code>
 • /unban  - <code>to unban a user.</code>
 • /channel - <code>to get list of total connected channels</code>
-• /broadcast - <code>to broadcast a message to all users</code>
-</spoiler>"""
-    STATUS_TXT = """<blockquote>★ 𝚃𝙾𝚃𝙰𝙻 𝙵𝙸𝙻𝙴𝚂: <code>{}</code>
+• /broadcast - <code>to broadcast a message to all users</code>"""
+    STATUS_TXT = """★ 𝚃𝙾𝚃𝙰𝙻 𝙵𝙸𝙻𝙴𝚂: <code>{}</code>
 ★ 𝚃𝙾𝚃𝙰𝙻 𝚄𝚂𝙴𝚁𝚂: <code>{}</code>
 ★ 𝚃𝙾𝚃𝙰𝙻 𝙲𝙷𝙰𝚃𝚂: <code>{}</code>
 ★ 𝚄𝚂𝙴𝙳 𝚂𝚃𝙾𝚁𝙰𝙶𝙴: <code>{}</code> 𝙼𝚒𝙱
-★ 𝙵𝚁𝙴𝙴 𝚂𝚃𝙾𝚁𝙰𝙶𝙴: <code>{}</code> 𝙼𝚒𝙱</blockquote>"""
+★ 𝙵𝚁𝙴𝙴 𝚂𝚃𝙾𝚁𝙰𝙶𝙴: <code>{}</code> 𝙼𝚒𝙱"""
     LOG_TEXT_G = """#NewGroup
 Group = {}(<code>{}</code>)
 Total Members = <code>{}</code>
@@ -228,18 +212,18 @@ Name - {}
 """
     PLANS_TXT = """<b>👋 ʜᴇʏ {},
     
-<blockquote>🎖️ ᴀᴠᴀɪʟᴀʙʟᴇ ᴘʟᴀɴs :</blockquote>
+<i>🎖️ ᴀᴠᴀɪʟᴀʙʟᴇ ᴘʟᴀɴs :</i>
 
-● <code>02₹</code> ➛ <u>ʙʀᴏɴᴢᴇ ᴘʟᴀɴ</u> » <code>7 ᴅᴀʏꜱ</code>
-● <code>09₹</code> ➛ <u>Sɪʟᴠᴇʀ ᴘʟᴀɴ</u> » <code>31 ᴅᴀʏꜱ</code>
-● <code>23₹</code> ➛ <u>ɢᴏʟᴅ ᴘʟᴀɴ</u> » <code>91 ᴅᴀʏꜱ</code>
-● <code>49₹</code> ➛ <u>ᴘʟᴀᴛɪɴᴜᴍ ᴘʟᴀɴ</u> » <code>181 ᴅᴀʏꜱ</code>
-● <code>99₹</code> ➛ <u>ᴅɪᴀᴍᴏɴᴅ ᴘʟᴀɴ</u> » <code>366 ᴅᴀʏꜱ</code>
+● <code>02 ৳</code> ➛ <u>ʙʀᴏɴᴢᴇ ᴘʟᴀɴ</u> » <code>7 ᴅᴀʏꜱ</code>
+● <code>09 ৳</code> ➛ <u>Sɪʟᴠᴇʀ ᴘʟᴀɴ</u> » <code>31 ᴅᴀʏꜱ</code>
+● <code>23 ৳</code> ➛ <u>ɢᴏʟᴅ ᴘʟᴀɴ</u> » <code>91 ᴅᴀʏꜱ</code>
+● <code>49 ৳</code> ➛ <u>ᴘʟᴀᴛɪɴᴜᴍ ᴘʟᴀɴ</u> » <code>181 ᴅᴀʏꜱ</code>
+● <code>99 ৳</code> ➛ <u>ᴅɪᴀᴍᴏɴᴅ ᴘʟᴀɴ</u> » <code>366 ᴅᴀʏꜱ</code>
 
-<blockquote>♥ ᴜᴘɪ ɪᴅ - <code>{}</code>
-📸 sᴄᴀɴ QR - <a href='{}'>ᴄʟɪᴄᴋ ʜᴇʀᴇ ᴛᴏ Pay</a></blockquote>
+♥ bKash No:- <code>{}</code>
+📸 sᴄᴀɴ QR:- <a href='{}'>ᴄʟɪᴄᴋ ʜᴇʀᴇ ᴛᴏ Pay</a>
 
-<blockquote>⚜️ ᴄʜᴇᴄᴋ ʏᴏᴜʀ ᴀᴄᴛɪᴠᴇ ᴘʟᴀɴ ʙʏ ᴜꜱɪɴɢ : /myplan</blockquote>
+⚜️ ᴄʜᴇᴄᴋ ʏᴏᴜʀ ᴀᴄᴛɪᴠᴇ ᴘʟᴀɴ ʙʏ ᴜꜱɪɴɢ : /myplan
 
 ‼️ ᴍᴜsᴛ sᴇɴᴅ sᴄʀᴇᴇɴsʜᴏᴛ ᴀғᴛᴇʀ ᴘᴀʏᴍᴇɴᴛ.</b>"""
     PROGRESS_BAR = """\n
